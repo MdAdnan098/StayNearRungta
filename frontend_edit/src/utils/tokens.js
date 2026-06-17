@@ -1,0 +1,36 @@
+const tokens = {
+  light: {
+    bg: "#ffffff",
+    bgSub: "#f7f7f7",
+    bgCard: "#ffffff",
+    border: "#e5e5e5",
+    text: "#111111",
+    textSub: "#555555",
+    textMuted: "#999999",
+    navbar: "#111111",
+    navText: "#ffffff",
+    accent: "#111111",
+    accentText: "#ffffff",
+    danger: "#cc2200",
+    success: "#1a7a1a",
+    inputBg: "#ffffff",
+  },
+  dark: {
+    bg: "#111111",
+    bgSub: "#1a1a1a",
+    bgCard: "#1e1e1e",
+    border: "#2e2e2e",
+    text: "#f0f0f0",
+    textSub: "#aaaaaa",
+    textMuted: "#666666",
+    navbar: "#0a0a0a",
+    navText: "#f0f0f0",
+    accent: "#f0f0f0",
+    accentText: "#111111",
+    danger: "#ff4422",
+    success: "#33cc33",
+    inputBg: "#222222",
+  },
+};
+
+export default tokens;
