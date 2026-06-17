@@ -1,18 +1,37 @@
 StayNearRungta
 
-A full-stack property rental and accommodation platform built for students and professionals to find nearby rooms, PGs, hostels, and rental properties.
+StayNearRungta is a full-stack accommodation and property listing platform that helps students and working professionals discover nearby rental properties, rooms, hostels, and PG accommodations around the Rungta area.
 
 Features
 
-- Property Listings
-- Property Details Page
-- Owner Registration & Login
-- Admin Registration & Login
+Property Search
+
+- Browse available properties
+- View detailed property information
+- Explore accommodations with images and amenities
+- Responsive user interface
+
+Owner Portal
+
+- Owner Registration
+- Owner Login
+- Add New Property
+- Manage Property Listings
+- Upload Property Images
+
+Admin Portal
+
+- Admin Registration
+- Admin Login
 - Admin Dashboard
 - Property Management
-- Image Uploads with Cloudinary
+- Owner Management
+
+Security
+
 - JWT Authentication
-- Responsive Design
+- Protected Routes
+- Secure API Access
 
 Tech Stack
 
@@ -20,6 +39,8 @@ Frontend
 
 - React
 - Vite
+- Context API
+- Custom Hooks
 
 Backend
 
@@ -30,11 +51,19 @@ Backend
 - Cloudinary
 - Multer
 
+Project Structure
+
+StayNearRungta/
+├── frontend_edit/
+├── backend_edit/
+├── screenshots/
+└── README.md
+
 Screenshots
 
-Home Page
+Landing Page
 
-"Home Page" (./screenshots/Screenshot_20260618_001646_Chrome.jpg)
+"Landing Page" (./screenshots/Screenshot_20260618_001646_Chrome.jpg)
 
 Property Details
 
@@ -52,19 +81,30 @@ Dashboard
 
 "Dashboard" (./screenshots/Screenshot_20260618_003309_Chrome.jpg)
 
-Installation
-
-Backend
+Backend Setup
 
 cd backend_edit
 npm install
+
+Create a ".env" file using ".env.example".
+
 npm start
 
-Frontend
+Frontend Setup
 
 cd frontend_edit
 npm install
 npm run dev
+
+Environment Variables
+
+Required backend environment variables:
+
+- MONGODB_URI
+- JWT_SECRET
+- CLOUDINARY_CLOUD_NAME
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
 
 Author
 
