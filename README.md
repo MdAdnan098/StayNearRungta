@@ -63,23 +63,23 @@ Screenshots
 
 Landing Page
 
-"Landing Page" (./screenshots/Screenshot_20260618_001646_Chrome.jpg)
+"Landing Page" (./screenshots/LandingPage.jpg)
 
 Property Details
 
-"Property Details" (./screenshots/Screenshot_20260618_001656_Chrome.jpg)
+"Property Details" (./screenshots/PropertyDetails.jpg)
 
 Owner Registration
 
-"Owner Registration" (./screenshots/Screenshot_20260618_001702_Chrome.jpg)
+"Owner Registration" (./screenshots/OwnerRegistration.jpg)
 
 Owner Login
 
-"Owner Login" (./screenshots/Screenshot_20260618_001710_Chrome.jpg)
+"Owner Login" (./screenshots/OwnerLogin.jpg)
 
 Dashboard
 
-"Dashboard" (./screenshots/Screenshot_20260618_003309_Chrome.jpg)
+"Dashboard" (./screenshots/Dashboard.jpg)
 
 Backend Setup
 
