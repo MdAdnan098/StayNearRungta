@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import useRouter from "../hooks/useRouter.js";
+import StatsWidget from "./StatsWidget.jsx";
 
 const Navbar = () => {
   const { path } = useRouter();
@@ -97,6 +98,7 @@ const Navbar = () => {
                 Owner Login
               </a>
             )}
+            <StatsWidget />
             <button
               onClick={toggleTheme}
               title="Toggle dark mode"

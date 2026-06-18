@@ -14,7 +14,6 @@ import AdminLoginPage from "./pages/AdminLoginPage.jsx";
 import AdminRegisterPage from "./pages/AdminRegisterPage.jsx";
 import AdminDashboardPage from "./pages/AdminDashboardPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
-import StatsWidget from "./components/StatsWidget.jsx";
 
 const Router = () => {
   const { path } = useRouter();
@@ -40,7 +39,6 @@ const AppInner = () => {
     <>
       <GlobalStyles t={t} />
       <Router />
-      <StatsWidget />
     </>
   );
 };
