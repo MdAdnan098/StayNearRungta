@@ -50,7 +50,7 @@ Backend
 - JWT Authentication
 - Cloudinary
 - Multer
-
+![Landing Page](./screenshots/Screenshot_20260618_001646_Chrome.jpg)
 Project Structure
 
 StayNearRungta/
@@ -66,6 +66,7 @@ StayNearRungta/
 
 ### Property Details
 ![Property Details](./screenshots/PropertyDetails.jpg)
+![Landing Page](./screenshots/Screenshot_20260618_001646_Chrome.jpg)
 
 ### Owner Registration
 ![Owner Registration](./screenshots/OwnerRegistration.jpg)
