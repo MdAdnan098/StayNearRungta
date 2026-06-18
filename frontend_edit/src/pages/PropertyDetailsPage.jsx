@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 const Placeholder = ({ label, height = 48 }) => {
   const { t } = useTheme();

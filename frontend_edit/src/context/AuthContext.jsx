@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { navigate } from "../utils/router.js";
 
 const AuthContext = createContext();
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 export const AuthProvider = ({ children }) => {
   const [owner, setOwner] = useState(() => {

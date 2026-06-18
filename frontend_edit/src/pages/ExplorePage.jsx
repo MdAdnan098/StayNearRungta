@@ -6,7 +6,7 @@ import EmptyState from "../components/EmptyState.jsx";
 import PropertyCard from "../components/PropertyCard.jsx";
 import AmenityFilterPanel, { AMENITY_OPTIONS } from "../components/AmenityFilterPanel.jsx";
 
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 const EMPTY_AMENITY_FILTERS = AMENITY_OPTIONS.reduce(
   (acc, opt) => ({ ...acc, [opt.key]: false }),

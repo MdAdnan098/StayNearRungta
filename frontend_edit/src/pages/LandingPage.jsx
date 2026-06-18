@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
 
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 const LandingPage = () => {
   const { t } = useTheme();

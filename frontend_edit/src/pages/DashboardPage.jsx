@@ -4,7 +4,7 @@ import { useTheme } from "../context/ThemeContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 const DashboardPage = () => {
   const { t } = useTheme();

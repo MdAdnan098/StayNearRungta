@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import FormField from "../components/FormField.jsx";
 import PasswordInput from "../components/PasswordInput.jsx";
 
-const API = "http://localhost:5000";
+const API = "https://staynearrungta-backend.onrender.com";
 
 const AdminRegisterPage = () => {
   const { t } = useTheme();
