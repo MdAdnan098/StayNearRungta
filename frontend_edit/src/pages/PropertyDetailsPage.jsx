@@ -230,7 +230,7 @@ const PropertyDetailsPage = () => {
 
   // Pre-filled WhatsApp message (hinglish)
   const whatsappMsg = encodeURIComponent(
-    `Namaste! Maine CampusStay par aapki property "${property.propertyName}" dekhi. Kya ye abhi available hai? Mujhe rent aur rooms ke baare mein details chahiye. Please reply karein. 🙏`
+    `Hey, Maine StayNearRungta Website par aapki property "${property.propertyName}" dekhi hai. Kya ye abhi available hai? Please mujhe reply karein.`
   );
 
   return (
@@ -454,9 +454,13 @@ const PropertyDetailsPage = () => {
             <div>
               <div style={{ marginBottom: 36 }}>
                 <h3 style={{ marginBottom: 16 }}>About this Property</h3>
-                <p style={{ fontSize: "0.92rem", color: t.textSub, lineHeight: 1.7 }}>
-                  {property.description || "No description provided."}
-                </p>
+                <ul style={{ fontSize: "0.92rem", color: t.textSub, lineHeight: 2, paddingLeft: 20 }}>
+                  {property.hasCooler && <li>✅ Cooler diya hai</li>}
+                  {property.attachedBathroom && <li>✅ Attached bathroom hai</li>}
+                  {property.independent && <li>✅ Independent room/PG hai</li>}
+                  {property.electricityIncluded && <li>✅ Bijli bill rent mein included</li>}
+                  {property.bedGaddaTakiya && <li>✅ Bed, gadda, takiya diya hai</li>}
+                </ul>
               </div>
 
               <div>

@@ -468,14 +468,6 @@ const AddPropertyPage = () => {
             </FormField>
           </div>
 
-          <FormField label="Description">
-            <textarea
-              placeholder="Describe the property — rooms, facilities, food, nearby landmarks..."
-              value={form.description}
-              onChange={(e) => set("description", e.target.value)}
-            />
-          </FormField>
-
           <FormField label="Facilities (Suvidhayen)">
             <div className="checkbox-grid">
               <label className="checkbox-item">
