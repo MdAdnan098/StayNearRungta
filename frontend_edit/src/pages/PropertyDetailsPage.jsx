@@ -455,11 +455,11 @@ const PropertyDetailsPage = () => {
               <div style={{ marginBottom: 36 }}>
                 <h3 style={{ marginBottom: 16 }}>About this Property</h3>
                 <ul style={{ fontSize: "0.92rem", color: t.textSub, lineHeight: 2, paddingLeft: 20 }}>
-                  {property.hasCooler && <li>✅ Cooler diya hai</li>}
-                  {property.attachedBathroom && <li>✅ Attached bathroom hai</li>}
-                  {property.independent && <li>✅ Independent room/PG hai</li>}
-                  {property.electricityIncluded && <li>✅ Bijli bill rent mein included</li>}
-                  {property.bedGaddaTakiya && <li>✅ Bed, gadda, takiya diya hai</li>}
+                  {property.hasCooler && <li>Cooler is Available</li>}
+                  {property.attachedBathroom && <li>Attached Bathroom</li>}
+                  {property.isIndependent && <li>Room/PG/Lodge/Flat is Independent</li>}
+                  {property.electricityIncluded && <li>Bijli Bill is Included in Room Rent</li>}
+                  {property.bedGaddaTakiyaProvided && <li>Bed, Takiya, Gadda Available</li>}
                 </ul>
               </div>
 
