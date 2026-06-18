@@ -268,7 +268,7 @@ const AddPropertyPage = () => {
                 width: 72,
                 height: 72,
                 borderRadius: "50%",
-                background: "#d4edda",
+                background: "#1a7a3a",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -290,7 +290,7 @@ const AddPropertyPage = () => {
               }}
             >
               {isEditMode
-                ? "Aapki property successfully update ho gayi hai aur ab Explore mein dikhai degi. 🏠"
+                ? "Aapki property edit ho gayi hai! Ye abhi pending hai aur admin review mein hai. Thode der mein approve ho jayega. 🕐"
                 : "Aapki property successfully add ho gayi hai! Admin ke approve karne ke baad ye dashboard par show hona start ho jayega. Thodi der mein notification mil sakti hai."}
             </p>
             <p
