@@ -276,7 +276,7 @@ const AddPropertyPage = () => {
                 fontSize: "2rem",
               }}
             >
-              ✓
+              <span style={{ color: "#ffffff" }}>✓</span>
             </div>
             <h2 style={{ marginBottom: 16 }}>
               {isEditMode ? "Property Update Ho Gayi! 🎉" : "Property Add Ho Gayi! 🎉"}
