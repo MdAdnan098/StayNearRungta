@@ -59,28 +59,22 @@ StayNearRungta/
 ├── screenshots/
 └── README.md
 
-Screenshots
+## Screenshots
 
-Landing Page
+### Landing Page
+![Landing Page](./screenshots/LandingPage.jpg)
 
-"Landing Page" (./screenshots/LandingPage.jpg)
+### Property Details
+![Property Details](./screenshots/PropertyDetails.jpg)
 
-Property Details
+### Owner Registration
+![Owner Registration](./screenshots/OwnerRegistration.jpg)
 
-"Property Details" (./screenshots/PropertyDetails.jpg)
+### Owner Login
+![Owner Login](./screenshots/OwnerLogin.jpg)
 
-Owner Registration
-
-"Owner Registration" (./screenshots/OwnerRegistration.jpg)
-
-Owner Login
-
-"Owner Login" (./screenshots/OwnerLogin.jpg)
-
-Dashboard
-
-"Dashboard" (./screenshots/Dashboard.jpg)
-
+### Dashboard
+![Dashboard](./screenshots/Dashboard.jpg)
 Backend Setup
 
 cd backend_edit
