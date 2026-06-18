@@ -24,11 +24,11 @@ const AddPropertyPage = () => {
     type: "boys",
     description: "",
     address: "",
-    hasCooler: false,
-    attachedBathroom: false,
-    independent: false,
-    electricityIncluded: false,
-    bedGaddaTakiya: false,
+    hasCooler: null,
+    attachedBathroom: null,
+    independent: null,
+    electricityIncluded: null,
+    bedGaddaTakiya: null,
   });
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -208,11 +208,11 @@ const AddPropertyPage = () => {
         type: "boys",
         description: "",
         address: "",
-        hasCooler: false,
-        attachedBathroom: false,
-        independent: false,
-        electricityIncluded: false,
-        bedGaddaTakiya: false,
+        hasCooler: null,
+        attachedBathroom: null,
+        independent: null,
+        electricityIncluded: null,
+        bedGaddaTakiya: null,
       });
       setPhotoFiles([]);
       setPhotoCount(0);
