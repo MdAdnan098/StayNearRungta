@@ -7,19 +7,25 @@ const API = "https://staynearrungta-backend.onrender.com";
 
 const parseDevice = (ua) => {
   if (!ua || ua === "Unknown") return "Unknown Device";
+  const brands = [
+    "Samsung", "Redmi", "Xiaomi", "Realme", "OnePlus", "Oppo", "Vivo",
+    "iPhone", "Apple", "Nokia", "Motorola", "Infinix", "Tecno", "Poco"
+  ];
+  for (const b of brands) {
+    if (ua === b) return b;
+  }
+  if (ua === "Android Device") return "Android Device";
   let os = "Unknown OS";
   if (/android/i.test(ua)) os = "Android";
   else if (/iphone|ipad|ipod/i.test(ua)) os = "iOS";
   else if (/windows/i.test(ua)) os = "Windows";
   else if (/mac os/i.test(ua)) os = "Mac";
   else if (/linux/i.test(ua)) os = "Linux";
-
   let browser = "Unknown Browser";
   if (/edg/i.test(ua)) browser = "Edge";
   else if (/chrome/i.test(ua)) browser = "Chrome";
   else if (/firefox/i.test(ua)) browser = "Firefox";
   else if (/safari/i.test(ua)) browser = "Safari";
-
   return `${os} · ${browser}`;
 };
 
