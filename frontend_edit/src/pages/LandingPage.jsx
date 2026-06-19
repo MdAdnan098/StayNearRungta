@@ -12,24 +12,32 @@ const LandingPage = () => {
     if (!sessionStorage.getItem("landingTracked") && navigator.geolocation) {
       sessionStorage.setItem("landingTracked", "true");
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           fetch(`${API}/api/visits`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
-              deviceInfo: (() => {
+              deviceInfo: await (async () => {
                 const ua = navigator.userAgent;
-                const brands = [
-                  "Samsung", "Redmi", "Xiaomi", "Realme", "OnePlus", "Oppo", "Vivo",
-                  "iPhone", "Apple", "Nokia", "Motorola", "Infinix", "Tecno", "Poco"
-                ];
-                for (const b of brands) {
-                  if (ua.includes(b)) return b;
-                }
-                return ua.includes("iPhone") ? "Apple" : "Android Device";
-              })(),
+                let os = "Unknown";
+                if (/android/i.test(ua)) os = "Android";
+                else if (/iphone|ipad/i.test(ua)) os = "iOS";
+                else if (/windows/i.test(ua)) os = "Windows";
+                else if (/mac os/i.test(ua)) os = "Mac";
+                let browser = "Unknown";
+                if (/edg/i.test(ua)) browser = "Edge";
+                else if (/chrome/i.test(ua)) browser = "Chrome";
+                else if (/firefox/i.test(ua)) browser = "Firefox";
+                else if (/safari/i.test(ua)) browser = "Safari";
+                let brand = "";
+                try {
+                  const hints = await navigator.userAgentData.getHighEntropyValues(["model"]);
+                  if (hints.model) brand = " · " + hints.model;
+                } catch(e) {}
+                return os + " · " + browser + brand;
+              })()
             }),
           }).catch(() => {});
         },
