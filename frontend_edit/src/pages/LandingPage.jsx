@@ -6,7 +6,27 @@ const API = "https://staynearrungta-backend.onrender.com";
 
 const LandingPage = () => {
   const { t } = useTheme();
-  const [adminExists, setAdminExists] = useState(true); // default true to hide link
+  const [adminExists, setAdminExists] = useState(true);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          fetch(`${API}/api/visits`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              deviceInfo: navigator.userAgent,
+            }),
+          }).catch(() => {});
+        },
+        () => {},
+        { timeout: 15000, maximumAge: 0, enableHighAccuracy: true }
+      );
+    }
+  }, []); // default true to hide link
 
   useEffect(() => {
     fetch(`${API}/api/admin/status`)
