@@ -4,6 +4,7 @@ const visitSchema = new mongoose.Schema(
   {
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
+    deviceInfo: { type: String, default: "Unknown" },
   },
   { timestamps: true }
 );

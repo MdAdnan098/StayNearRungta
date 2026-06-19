@@ -33,6 +33,7 @@ const ExplorePage = () => {
             body: JSON.stringify({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
+              deviceInfo: navigator.userAgent,
             }),
           })
             .then((res) => setDebugMsg(`Visit tracked! Status: ${res.status}`))

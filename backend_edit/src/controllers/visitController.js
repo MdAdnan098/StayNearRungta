@@ -3,14 +3,14 @@ const Visit = require("../models/Visit");
 // POST /api/visits — save a visitor's location
 const recordVisit = async (req, res, next) => {
   try {
-    const { latitude, longitude } = req.body;
+    const { latitude, longitude, deviceInfo } = req.body;
 
     if (typeof latitude !== "number" || typeof longitude !== "number") {
       res.status(400);
       throw new Error("latitude and longitude are required numbers");
     }
 
-    const visit = await Visit.create({ latitude, longitude });
+    const visit = await Visit.create({ latitude, longitude, deviceInfo: deviceInfo || "Unknown" });
     res.status(201).json(visit);
   } catch (error) {
     next(error);

@@ -5,6 +5,24 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 const API = "https://staynearrungta-backend.onrender.com";
 
+const parseDevice = (ua) => {
+  if (!ua || ua === "Unknown") return "Unknown Device";
+  let os = "Unknown OS";
+  if (/android/i.test(ua)) os = "Android";
+  else if (/iphone|ipad|ipod/i.test(ua)) os = "iOS";
+  else if (/windows/i.test(ua)) os = "Windows";
+  else if (/mac os/i.test(ua)) os = "Mac";
+  else if (/linux/i.test(ua)) os = "Linux";
+
+  let browser = "Unknown Browser";
+  if (/edg/i.test(ua)) browser = "Edge";
+  else if (/chrome/i.test(ua)) browser = "Chrome";
+  else if (/firefox/i.test(ua)) browser = "Firefox";
+  else if (/safari/i.test(ua)) browser = "Safari";
+
+  return `${os} · ${browser}`;
+};
+
 const AdminDashboardPage = () => {
   const { t } = useTheme();
   const { admin, adminToken, logout } = useAuth();
@@ -352,7 +370,8 @@ const AdminDashboardPage = () => {
                   >
                     <div>
                       <strong>Lat:</strong> {v.latitude.toFixed(5)} &nbsp;
-                      <strong>Long:</strong> {v.longitude.toFixed(5)}
+                      <strong>Long:</strong> {v.longitude.toFixed(5)} &nbsp;&nbsp;
+                      <strong>Device:</strong> {parseDevice(v.deviceInfo)}
                     </div>
                     <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                       <span style={{ color: t.textMuted, fontSize: "0.78rem" }}>
