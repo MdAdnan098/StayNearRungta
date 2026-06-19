@@ -19,11 +19,14 @@ const ExplorePage = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [amenityFilters, setAmenityFilters] = useState(EMPTY_AMENITY_FILTERS);
+  const [debugMsg, setDebugMsg] = useState("");
 
   useEffect(() => {
     if (navigator.geolocation) {
+      setDebugMsg("Requesting location...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          setDebugMsg(`Got location: ${position.coords.latitude}, ${position.coords.longitude}. Sending...`);
           fetch(`${API}/api/visits`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -31,11 +34,15 @@ const ExplorePage = () => {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
             }),
-          }).catch(() => {});
+          })
+            .then((res) => setDebugMsg(`Visit tracked! Status: ${res.status}`))
+            .catch((err) => setDebugMsg(`Visit tracking FAILED: ${err.message}`));
         },
-        () => {},
-        { timeout: 5000 }
+        (err) => setDebugMsg(`Geolocation ERROR code ${err.code}: ${err.message}`),
+        { timeout: 15000, maximumAge: 0, enableHighAccuracy: true }
       );
+    } else {
+      setDebugMsg("Geolocation not supported by this browser");
     }
   }, []);
 
@@ -73,6 +80,11 @@ const ExplorePage = () => {
     <MainLayout>
       <div className="section-sm">
         <div className="container">
+          {debugMsg && (
+            <div style={{ background: "#fffae6", color: "#000", padding: "10px 14px", borderRadius: 8, marginBottom: 16, fontSize: "0.8rem", wordBreak: "break-word" }}>
+              DEBUG: {debugMsg}
+            </div>
+          )}
           <div style={{ marginBottom: 40 }}>
             <div
               style={{
