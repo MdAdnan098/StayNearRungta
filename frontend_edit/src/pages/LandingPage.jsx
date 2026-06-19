@@ -19,7 +19,17 @@ const LandingPage = () => {
             body: JSON.stringify({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
-              deviceInfo: navigator.userAgent,
+              deviceInfo: (() => {
+                const ua = navigator.userAgent;
+                const brands = [
+                  "Samsung", "Redmi", "Xiaomi", "Realme", "OnePlus", "Oppo", "Vivo",
+                  "iPhone", "Apple", "Nokia", "Motorola", "Infinix", "Tecno", "Poco"
+                ];
+                for (const b of brands) {
+                  if (ua.includes(b)) return b;
+                }
+                return ua.includes("iPhone") ? "Apple" : "Android Device";
+              })(),
             }),
           }).catch(() => {});
         },
