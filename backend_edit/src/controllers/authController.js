@@ -129,4 +129,28 @@ const deleteMyAccount = async (req, res, next) => {
   }
 };
 
-module.exports = { registerOwner, loginOwner, deleteMyAccount };
+const resetPassword = async (req, res, next) => {
+  try {
+    const { mobileNumber, newPassword } = req.body;
+
+    if (!mobileNumber || !newPassword) {
+      res.status(400);
+      throw new Error("mobileNumber and newPassword are required");
+    }
+
+    const owner = await Owner.findOne({ mobileNumber });
+    if (!owner) {
+      res.status(404);
+      throw new Error("No account found with this mobile number");
+    }
+
+    owner.password = newPassword;
+    await owner.save();
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { registerOwner, loginOwner, deleteMyAccount, resetPassword };
