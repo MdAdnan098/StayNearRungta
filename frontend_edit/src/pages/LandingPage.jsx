@@ -9,7 +9,8 @@ const LandingPage = () => {
   const [adminExists, setAdminExists] = useState(true);
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (!sessionStorage.getItem("landingTracked") && navigator.geolocation) {
+      sessionStorage.setItem("landingTracked", "true");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           fetch(`${API}/api/visits`, {
