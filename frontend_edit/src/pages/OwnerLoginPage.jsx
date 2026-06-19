@@ -141,12 +141,18 @@ const OwnerLoginPage = () => {
             </a>
           </div>
 
-          <div style={{ marginTop: 12, textAlign: "center" }}>
+          <div style={{ marginTop: 12, textAlign: "center", display: "flex", justifyContent: "center", gap: 16 }}>
             <button
               onClick={() => { setShowReset(!showReset); setResetError(""); setResetSuccess(""); }}
               style={{ background: "none", border: "none", color: t.textMuted, fontSize: "0.85rem", cursor: "pointer", textDecoration: "underline" }}
             >
               Forgot Password?
+            </button>
+            <button
+              onClick={() => { setShowReset(!showReset); setResetError(""); setResetSuccess(""); }}
+              style={{ background: "none", border: "none", color: t.textMuted, fontSize: "0.85rem", cursor: "pointer", textDecoration: "underline" }}
+            >
+              Reset Password
             </button>
           </div>
 
