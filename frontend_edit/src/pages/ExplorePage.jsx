@@ -80,11 +80,6 @@ const ExplorePage = () => {
     <MainLayout>
       <div className="section-sm">
         <div className="container">
-          {debugMsg && (
-            <div style={{ background: "#fffae6", color: "#000", padding: "10px 14px", borderRadius: 8, marginBottom: 16, fontSize: "0.8rem", wordBreak: "break-word" }}>
-              DEBUG: {debugMsg}
-            </div>
-          )}
           <div style={{ marginBottom: 40 }}>
             <div
               style={{

@@ -27,4 +27,28 @@ const getVisits = async (req, res, next) => {
   }
 };
 
-module.exports = { recordVisit, getVisits };
+// DELETE /api/visits/:id — delete a single visit
+const deleteVisit = async (req, res, next) => {
+  try {
+    const visit = await Visit.findByIdAndDelete(req.params.id);
+    if (!visit) {
+      res.status(404);
+      throw new Error("Visit not found");
+    }
+    res.status(200).json({ message: "Visit deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// DELETE /api/visits — delete all visits
+const deleteAllVisits = async (req, res, next) => {
+  try {
+    await Visit.deleteMany({});
+    res.status(200).json({ message: "All visits deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { recordVisit, getVisits, deleteVisit, deleteAllVisits };

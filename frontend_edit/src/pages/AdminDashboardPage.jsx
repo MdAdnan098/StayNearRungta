@@ -94,6 +94,35 @@ const AdminDashboardPage = () => {
     fetchVisits();
   }, [fetchProperties, fetchOwners, fetchVisits]);
 
+  const handleDeleteVisit = async (id) => {
+    try {
+      const res = await fetch(`${API}/api/visits/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+      if (res.ok) {
+        fetchVisits();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteAllVisits = async () => {
+    if (!window.confirm("Delete ALL visitor locations? This cannot be undone.")) return;
+    try {
+      const res = await fetch(`${API}/api/visits/all`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+      if (res.ok) {
+        fetchVisits();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleApprove = async (id) => {
     try {
       const res = await fetch(`${API}/api/admin/${id}/approve`, {
@@ -297,7 +326,17 @@ const AdminDashboardPage = () => {
                 <p>When students allow location access on Explore PGs, it will show here.</p>
               </div>
             ) : (
-              <div style={{ display: "grid", gap: 10 }}>
+              <div>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
+                  <button
+                    onClick={handleDeleteAllVisits}
+                    className="btn btn-sm"
+                    style={{ background: "#ef4444", color: "#fff", border: "none" }}
+                  >
+                    Delete All Locations
+                  </button>
+                </div>
+                <div style={{ display: "grid", gap: 10 }}>
                 {visits.map((v) => (
                   <div
                     key={v._id}
@@ -327,9 +366,17 @@ const AdminDashboardPage = () => {
                       >
                         View on Map
                       </a>
+                      <button
+                        onClick={() => handleDeleteVisit(v._id)}
+                        className="btn btn-sm"
+                        style={{ background: "#ef4444", color: "#fff", border: "none" }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
+                </div>
               </div>
             )
           ) : tab === "owners" ? (
