@@ -356,7 +356,7 @@ const AdminDashboardPage = () => {
                     </div>
                     <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                       <span style={{ color: t.textMuted, fontSize: "0.78rem" }}>
-                        {new Date(v.createdAt).toLocaleString()}
+                        {new Date(v.createdAt).toLocaleString("en-IN", { hour: "numeric", minute: "numeric", hour12: true, day: "2-digit", month: "short", year: "numeric" })}
                       </span>
                       <a
                         href={`https://www.google.com/maps?q=${v.latitude},${v.longitude}`}
