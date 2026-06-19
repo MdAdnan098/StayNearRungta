@@ -5,6 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const statsRoutes = require("./routes/statsRoutes");
+const visitRoutes = require("./routes/visitRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
@@ -48,6 +49,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/stats", statsRoutes);
+app.use("/api/visits", visitRoutes);
 
 // ─── Error handling (must be last) ───────────────────────────────────────────
 app.use(notFound);

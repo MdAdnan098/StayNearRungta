@@ -12,6 +12,8 @@ const AdminDashboardPage = () => {
   const [pending, setPending] = useState([]);
   const [approved, setApproved] = useState([]);
   const [owners, setOwners] = useState([]);
+  const [visits, setVisits] = useState([]);
+  const [visitsLoading, setVisitsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [ownersLoading, setOwnersLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState("");
@@ -64,10 +66,33 @@ const AdminDashboardPage = () => {
     }
   }, [adminToken, logout]);
 
+  const fetchVisits = useCallback(async () => {
+    if (!adminToken) return;
+    setVisitsLoading(true);
+    try {
+      const res = await fetch(`${API}/api/visits`, {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+
+      if (res.status === 401) {
+        logout();
+        return;
+      }
+
+      const data = await res.json();
+      if (res.ok) setVisits(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setVisitsLoading(false);
+    }
+  }, [adminToken, logout]);
+
   useEffect(() => {
     fetchProperties();
     fetchOwners();
-  }, [fetchProperties, fetchOwners]);
+    fetchVisits();
+  }, [fetchProperties, fetchOwners, fetchVisits]);
 
   const handleApprove = async (id) => {
     try {
@@ -259,10 +284,55 @@ const AdminDashboardPage = () => {
             <TabBtn value="pending" label="Pending Properties" count={pending.length} />
             <TabBtn value="approved" label="Approved Properties" count={approved.length} />
             <TabBtn value="owners" label="Owners" count={owners.length} />
+            <TabBtn value="visits" label="Visitor Locations" count={visits.length} />
           </div>
 
           {/* List */}
-          {tab === "owners" ? (
+          {tab === "visits" ? (
+            visitsLoading ? (
+              <div style={{ padding: "40px 0", color: t.textMuted }}>Loading...</div>
+            ) : visits.length === 0 ? (
+              <div className="empty-state" style={{ paddingTop: 60, paddingBottom: 60 }}>
+                <h3 style={{ color: t.textSub }}>No visitor locations recorded yet.</h3>
+                <p>When students allow location access on Explore PGs, it will show here.</p>
+              </div>
+            ) : (
+              <div style={{ display: "grid", gap: 10 }}>
+                {visits.map((v) => (
+                  <div
+                    key={v._id}
+                    className="card"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      gap: 10,
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    <div>
+                      <strong>Lat:</strong> {v.latitude.toFixed(5)} &nbsp;
+                      <strong>Long:</strong> {v.longitude.toFixed(5)}
+                    </div>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <span style={{ color: t.textMuted, fontSize: "0.78rem" }}>
+                        {new Date(v.createdAt).toLocaleString()}
+                      </span>
+                      <a
+                        href={`https://www.google.com/maps?q=${v.latitude},${v.longitude}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-outline btn-sm"
+                      >
+                        View on Map
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          ) : tab === "owners" ? (
             ownersLoading ? (
               <div style={{ padding: "40px 0", color: t.textMuted }}>Loading...</div>
             ) : owners.length === 0 ? (

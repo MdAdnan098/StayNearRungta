@@ -21,6 +21,25 @@ const ExplorePage = () => {
   const [amenityFilters, setAmenityFilters] = useState(EMPTY_AMENITY_FILTERS);
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          fetch(`${API}/api/visits`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            }),
+          }).catch(() => {});
+        },
+        () => {},
+        { timeout: 5000 }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchProperties = async () => {
       setLoading(true);
       try {
