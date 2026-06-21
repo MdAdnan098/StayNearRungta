@@ -52,6 +52,7 @@ const AmenityFilterPanel = ({ filters, onChange, onClear }) => {
             top: "calc(100% + 8px)",
             right: 0,
             width: 250,
+            maxWidth: "calc(100vw - 48px)",
             zIndex: 50,
             padding: 18,
           }}

@@ -1,13 +1,18 @@
 const GlobalStyles = ({ t }) => (
   <style>{`
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; scroll-behavior: smooth; max-width: 100%; overflow-x: hidden; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: ${t.bg};
       color: ${t.text};
       transition: background 0.2s, color 0.2s;
+      max-width: 100%;
+      overflow-x: hidden;
     }
+    img { max-width: 100%; height: auto; }
+    table { max-width: 100%; }
+    pre, code { max-width: 100%; overflow-x: auto; }
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
     input, textarea, select { font-family: inherit; }
