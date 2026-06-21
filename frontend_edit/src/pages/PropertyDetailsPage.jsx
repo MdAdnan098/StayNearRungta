@@ -443,9 +443,9 @@ const PropertyDetailsPage = () => {
           </div>
 
           <div
+            className="property-details-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 320px",
               gap: 40,
               alignItems: "start",
             }}

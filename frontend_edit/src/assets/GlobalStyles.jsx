@@ -49,6 +49,15 @@ const GlobalStyles = ({ t }) => (
     }
     .field textarea { resize: vertical; min-height: 100px; }
 
+    .property-details-grid {
+      grid-template-columns: 1fr 320px;
+    }
+    @media (max-width: 768px) {
+      .property-details-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .checkbox-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
     }
