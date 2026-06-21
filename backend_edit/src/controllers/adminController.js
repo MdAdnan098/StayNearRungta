@@ -278,6 +278,89 @@ const deleteOwner = async (req, res, next) => {
   }
 };
 
+/**
+ * PUT /api/admin/owners/:id
+ * Admin updates an owner's fullName/mobileNumber.
+ */
+const updateOwner = async (req, res, next) => {
+  try {
+    const owner = await Owner.findById(req.params.id);
+    if (!owner) {
+      res.status(404);
+      throw new Error("Owner not found");
+    }
+
+    const { fullName, mobileNumber } = req.body;
+    if (fullName) owner.fullName = fullName;
+    if (mobileNumber) owner.mobileNumber = mobileNumber;
+
+    await owner.save();
+
+    res.status(200).json({
+      message: "Owner updated successfully",
+      owner: { _id: owner._id, fullName: owner.fullName, mobileNumber: owner.mobileNumber },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * PUT /api/admin/properties/:id
+ * Admin updates any property (no ownership check).
+ */
+const updatePropertyAsAdmin = async (req, res, next) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      res.status(404);
+      throw new Error("Property not found");
+    }
+
+    const {
+      propertyName,
+      rent,
+      ownerName,
+      phoneNumber,
+      alternateNumber,
+      category,
+      address,
+      latitude,
+      longitude,
+      hasCooler,
+      attachedBathroom,
+      isIndependent,
+      electricityIncluded,
+      bedGaddaTakiyaProvided,
+    } = req.body;
+
+    const parseBool = (v) => v === true || v === "true";
+
+    if (propertyName !== undefined) property.propertyName = propertyName;
+    if (rent !== undefined) property.rent = Number(rent);
+    if (ownerName !== undefined) property.ownerName = ownerName;
+    if (phoneNumber !== undefined) property.phoneNumber = phoneNumber;
+    if (alternateNumber !== undefined) property.alternateNumber = alternateNumber;
+    if (category !== undefined) property.category = category;
+    if (address !== undefined) property.address = address;
+    if (latitude !== undefined) property.latitude = Number(latitude);
+    if (longitude !== undefined) property.longitude = Number(longitude);
+    if (hasCooler !== undefined) property.hasCooler = parseBool(hasCooler);
+    if (attachedBathroom !== undefined) property.attachedBathroom = parseBool(attachedBathroom);
+    if (isIndependent !== undefined) property.isIndependent = parseBool(isIndependent);
+    if (electricityIncluded !== undefined) property.electricityIncluded = parseBool(electricityIncluded);
+    if (bedGaddaTakiyaProvided !== undefined) property.bedGaddaTakiyaProvided = parseBool(bedGaddaTakiyaProvided);
+
+    const updated = await property.save();
+    res.status(200).json({
+      message: "Property updated successfully by admin",
+      property: attachMapUrl(updated.toObject()),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginAdmin,
   registerAdmin,
@@ -289,4 +372,6 @@ module.exports = {
   deleteProperty,
   getOwners,
   deleteOwner,
+  updateOwner,
+  updatePropertyAsAdmin,
 };

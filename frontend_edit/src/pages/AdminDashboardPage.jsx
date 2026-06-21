@@ -41,6 +41,10 @@ const AdminDashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [ownersLoading, setOwnersLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState("");
+  const [editingOwner, setEditingOwner] = useState(null);
+  const [editOwnerForm, setEditOwnerForm] = useState({ fullName: "", mobileNumber: "" });
+  const [editingProperty, setEditingProperty] = useState(null);
+  const [editPropertyForm, setEditPropertyForm] = useState({});
 
   const fetchProperties = useCallback(async () => {
     if (!adminToken) return;
@@ -141,6 +145,74 @@ const AdminDashboardPage = () => {
       });
       if (res.ok) {
         fetchVisits();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const openEditOwner = (owner) => {
+    setEditingOwner(owner._id);
+    setEditOwnerForm({ fullName: owner.fullName, mobileNumber: owner.mobileNumber });
+  };
+
+  const saveEditOwner = async () => {
+    try {
+      const res = await fetch(`${API}/api/admin/owners/${editingOwner}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify(editOwnerForm),
+      });
+      if (res.ok) {
+        setEditingOwner(null);
+        fetchOwners();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to update owner");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const openEditProperty = (p) => {
+    setEditingProperty(p._id);
+    setEditPropertyForm({
+      propertyName: p.propertyName || "",
+      rent: p.rent || "",
+      ownerName: p.ownerName || "",
+      phoneNumber: p.phoneNumber || "",
+      alternateNumber: p.alternateNumber || "",
+      category: p.category || "Boys",
+      address: p.address || "",
+      hasCooler: !!p.hasCooler,
+      attachedBathroom: !!p.attachedBathroom,
+      isIndependent: !!p.isIndependent,
+      electricityIncluded: !!p.electricityIncluded,
+      bedGaddaTakiyaProvided: !!p.bedGaddaTakiyaProvided,
+    });
+  };
+
+  const saveEditProperty = async () => {
+    try {
+      const res = await fetch(`${API}/api/admin/properties/${editingProperty}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify(editPropertyForm),
+      });
+      if (res.ok) {
+        setEditingProperty(null);
+        fetchOwners();
+        fetchProperties();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to update property");
       }
     } catch (err) {
       console.error(err);
@@ -435,14 +507,48 @@ const AdminDashboardPage = () => {
                           {o.properties.length} propert{o.properties.length === 1 ? "y" : "ies"}
                         </div>
                       </div>
-                      <button
-                        onClick={() => handleDeleteOwner(o._id, o.fullName)}
-                        className="btn btn-sm"
-                        style={{ background: "#ef4444", color: "#fff", border: "none" }}
-                      >
-                        Delete Owner
-                      </button>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button
+                          onClick={() => openEditOwner(o)}
+                          className="btn btn-sm"
+                          style={{ background: "#3b82f6", color: "#fff", border: "none" }}
+                        >
+                          Edit Owner
+                        </button>
+                        <button
+                          onClick={() => handleDeleteOwner(o._id, o.fullName)}
+                          className="btn btn-sm"
+                          style={{ background: "#ef4444", color: "#fff", border: "none" }}
+                        >
+                          Delete Owner
+                        </button>
+                      </div>
                     </div>
+
+                    {editingOwner === o._id && (
+                      <div style={{ border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, marginBottom: 16, display: "grid", gap: 10 }}>
+                        <input
+                          type="text"
+                          placeholder="Full Name"
+                          value={editOwnerForm.fullName}
+                          onChange={(e) => setEditOwnerForm({ ...editOwnerForm, fullName: e.target.value })}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Mobile Number"
+                          value={editOwnerForm.mobileNumber}
+                          onChange={(e) => setEditOwnerForm({ ...editOwnerForm, mobileNumber: e.target.value })}
+                        />
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <button onClick={saveEditOwner} className="btn btn-sm" style={{ background: "#22a84a", color: "#fff", border: "none" }}>
+                            Save
+                          </button>
+                          <button onClick={() => setEditingOwner(null)} className="btn btn-outline btn-sm">
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     {o.properties.length > 0 && (
                       <div
@@ -469,11 +575,93 @@ const AdminDashboardPage = () => {
                               <span>{p.propertyName}</span>
                               <span className={`badge badge-${p.status}`}>{p.status}</span>
                             </div>
-                            <a href={`#/property/${p._id}`} className="btn btn-outline btn-sm">
-                              View
-                            </a>
+                            <div style={{ display: "flex", gap: 8 }}>
+                              <a href={`#/property/${p._id}`} className="btn btn-outline btn-sm">
+                                View
+                              </a>
+                              <button
+                                onClick={() => openEditProperty(p)}
+                                className="btn btn-sm"
+                                style={{ background: "#3b82f6", color: "#fff", border: "none" }}
+                              >
+                                Edit
+                              </button>
+                            </div>
                           </div>
                         ))}
+                      </div>
+                    )}
+
+                    {editingProperty && o.properties.some((pp) => pp._id === editingProperty) && (
+                      <div style={{ border: `1px solid ${t.border}`, borderRadius: 8, padding: 14, marginTop: 14, display: "grid", gap: 10 }}>
+                        <input
+                          type="text"
+                          placeholder="Property Name"
+                          value={editPropertyForm.propertyName}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, propertyName: e.target.value })}
+                        />
+                        <input
+                          type="number"
+                          placeholder="Rent"
+                          value={editPropertyForm.rent}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, rent: e.target.value })}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Owner Name"
+                          value={editPropertyForm.ownerName}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, ownerName: e.target.value })}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          value={editPropertyForm.phoneNumber}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, phoneNumber: e.target.value })}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Alternate Number"
+                          value={editPropertyForm.alternateNumber}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, alternateNumber: e.target.value })}
+                        />
+                        <select
+                          value={editPropertyForm.category}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, category: e.target.value })}
+                        >
+                          <option value="Boys">Boys</option>
+                          <option value="Girls">Girls</option>
+                        </select>
+                        <textarea
+                          placeholder="Address"
+                          value={editPropertyForm.address}
+                          onChange={(e) => setEditPropertyForm({ ...editPropertyForm, address: e.target.value })}
+                        />
+                        <div style={{ display: "grid", gap: 6 }}>
+                          {[
+                            { key: "hasCooler", label: "Cooler Available" },
+                            { key: "attachedBathroom", label: "Attached Bathroom" },
+                            { key: "isIndependent", label: "Independent" },
+                            { key: "electricityIncluded", label: "Bijli Included" },
+                            { key: "bedGaddaTakiyaProvided", label: "Bed/Gadda/Takiya" },
+                          ].map(({ key, label }) => (
+                            <label key={key} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.85rem" }}>
+                              <input
+                                type="checkbox"
+                                checked={editPropertyForm[key] || false}
+                                onChange={(e) => setEditPropertyForm({ ...editPropertyForm, [key]: e.target.checked })}
+                              />
+                              {label}
+                            </label>
+                          ))}
+                        </div>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <button onClick={saveEditProperty} className="btn btn-sm" style={{ background: "#22a84a", color: "#fff", border: "none" }}>
+                            Save
+                          </button>
+                          <button onClick={() => setEditingProperty(null)} className="btn btn-outline btn-sm">
+                            Cancel
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>

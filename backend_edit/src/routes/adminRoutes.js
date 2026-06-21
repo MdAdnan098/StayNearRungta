@@ -11,6 +11,8 @@ const {
   deleteProperty,
   getOwners,
   deleteOwner,
+  updateOwner,
+  updatePropertyAsAdmin,
 } = require("../controllers/adminController");
 const { protectAdmin } = require("../middleware/adminMiddleware");
 
@@ -33,6 +35,8 @@ router.delete("/:id", protectAdmin, deleteProperty);
 // Owners management – IMPORTANT: declared before "/:id" routes would clash,
 // but since these use the "/owners" prefix they are unambiguous either way.
 router.get("/owners", protectAdmin, getOwners);
+router.put("/owners/:id", protectAdmin, updateOwner);
 router.delete("/owners/:id", protectAdmin, deleteOwner);
+router.put("/properties/:id", protectAdmin, updatePropertyAsAdmin);
 
 module.exports = router;
