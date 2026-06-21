@@ -311,6 +311,7 @@ const AdminDashboardPage = () => {
       onClick={() => setTab(value)}
       style={{
         padding: "10px 20px",
+        flexShrink: 0,
         borderBottom: `2px solid ${tab === value ? t.text : "transparent"}`,
         color: tab === value ? t.text : t.textMuted,
         fontWeight: tab === value ? 600 : 400,
@@ -405,7 +406,7 @@ const AdminDashboardPage = () => {
           </div>
 
           {/* Tabs */}
-          <div style={{ borderBottom: `1px solid ${t.border}`, marginBottom: 32, display: "flex" }}>
+          <div style={{ borderBottom: `1px solid ${t.border}`, marginBottom: 32, display: "flex", overflowX: "auto", whiteSpace: "nowrap", WebkitOverflowScrolling: "touch" }}>
             <TabBtn value="pending" label="Pending Properties" count={pending.length} />
             <TabBtn value="approved" label="Approved Properties" count={approved.length} />
             <TabBtn value="owners" label="Owners" count={owners.length} />
